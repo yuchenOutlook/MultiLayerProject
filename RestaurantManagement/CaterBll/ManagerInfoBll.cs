@@ -29,5 +29,10 @@ namespace CaterBll
         {
             return miDal.Update(mi)>0;
         }
+
+        public bool Remove(int id)
+        {
+            return miDal.Delete(id) > 0;
+        }
     }
 }

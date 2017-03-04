@@ -54,15 +54,39 @@ namespace CaterDal
         // 修改操作
         public int Update(ManagerInfo mi)
         {
-            string sql = "update ManagerInfo set mname=@name,mpwd=@pwd, mtype=@type where mid=@id";
-            SQLiteParameter[] ps =
+            // 定义参数集合，可以动态添加元素
+            List<SQLiteParameter> listPs = new List<SQLiteParameter>();
+
+            // 构造update的sql语句
+            string sql = "update ManagerInfo set mname=@name";
+            listPs.Add(new SQLiteParameter("@name", mi.MName));
+            // 判断是否修改密码
+            if (!mi.MPwd.Equals("这是原来的密码么"))
             {
-                new SQLiteParameter("@name",mi.MName),
-                new SQLiteParameter("@pwd",mi.MPwd),
-                new SQLiteParameter("@type",mi.MType),
-                new SQLiteParameter("@id",mi.MId)
-            };
-            return SqliteHelper.ExecuteNonQuery(sql, ps);
+                sql += ", mpwd=@pwd";
+                listPs.Add(new SQLiteParameter("@pwd", Md5Helper.EncryptString(mi.MPwd)));
+
+            }
+            // 继续拼接语句
+            sql+= ",mtype=@type where mid=@id";
+            listPs.Add(new SQLiteParameter("@type", mi.MType));
+            listPs.Add(new SQLiteParameter("@id", mi.MId));
+            //SQLiteParameter[] ps =
+            //{
+            //    new SQLiteParameter("@name",mi.MName),
+            //    new SQLiteParameter("@type",mi.MType),
+            //    new SQLiteParameter("@id",mi.MId)
+            //};
+            return SqliteHelper.ExecuteNonQuery(sql, listPs.ToArray());
+        }
+
+
+        public int Delete(int id)
+        {
+            string sql = "delete from ManagerInfo where mid=@id";
+            SQLiteParameter p = new SQLiteParameter("@id", id);
+            // 执行操作
+            return SqliteHelper.ExecuteNonQuery(sql,p); // 返回受影响的行数
         }
     }
 }

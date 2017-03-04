@@ -52,6 +52,8 @@ namespace CaterUI
             if (txtId.Text.Equals("添加时无编号"))
             {
                 // 添加
+
+                //调用bll的add方法
                 if (miBll.Add(mi))
                 {
                     // 如果加载成功，返回数据
@@ -120,6 +122,45 @@ namespace CaterUI
             txtPwd.Text = "这是原来的密码么";
 
             btnSave.Text = "Change Info";
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            // 获取选中行
+            var rows = dgvList.SelectedRows;
+            if (rows.Count > 0)
+            {
+                // 删除前的确认提示
+                DialogResult result = MessageBox.Show("Are you sure you want to delete?","Hint",
+                    MessageBoxButtons.OKCancel);
+                if (result == DialogResult.Cancel)
+                {
+                    //用户取消删除
+                    return;
+                } 
+
+                // 获取选中行的编号
+                int id = int.Parse(rows[0].Cells[0].Value.ToString());
+                // 调用删除的操作
+                if (miBll.Remove(id))
+                {
+                    //删除成功，重新加载数据
+                    LoadList();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete first");
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            txtId.Text = "添加时无编号";
+            txtName.Text = "";
+            txtPwd.Text = "";
+            rb2.Checked = true;
+            btnSave.Text = "Add";
         }
     }
 }
