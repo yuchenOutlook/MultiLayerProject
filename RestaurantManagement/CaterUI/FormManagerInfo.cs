@@ -175,5 +175,12 @@ namespace CaterUI
             rb2.Checked = true;
             btnSave.Text = "Add";
         }
+
+        private void FormManagerInfo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 与单例保持一致
+            // 出现这种代码的原因是：Form的Close() 会释放当前窗体的对象
+            _form = null;
+        }
     }
 }
