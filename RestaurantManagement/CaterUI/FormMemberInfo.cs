@@ -16,5 +16,15 @@ namespace CaterUI
         {
             InitializeComponent();
         }
+
+        private void FormMemberInfo_Load(object sender, EventArgs e)
+        {
+            LoadList();
+        }
+
+        private void LoadList()
+        {
+
+        }
     }
 }

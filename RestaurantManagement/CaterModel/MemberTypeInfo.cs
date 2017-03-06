@@ -1,5 +1,10 @@
 ﻿using System;
-namespace Cater.Model
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CaterModel
 {
 	/// <summary>
 	/// MemberTypeInfo:实体类(属性说明自动提取数据库字段的描述信息)
