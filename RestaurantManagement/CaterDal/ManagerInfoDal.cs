@@ -88,5 +88,34 @@ namespace CaterDal
             // 执行操作
             return SqliteHelper.ExecuteNonQuery(sql,p); // 返回受影响的行数
         }
+
+        // get ManagerInfo object accroding to name 
+        public ManagerInfo GetByName(string name)
+        {
+            // define an object
+            ManagerInfo mi = null;
+
+            string sql = "select * from ManagerInfo where mname = @name";
+            SQLiteParameter p = new SQLiteParameter("@name", name);
+            DataTable dt = SqliteHelper.GetDataTable(sql,p);
+            if (dt.Rows.Count> 0)
+            {
+                // Username exsists
+                mi = new ManagerInfo()
+                {
+                    MId = Convert.ToInt32(dt.Rows[0][0]),
+                    MName = name,
+                    MPwd = dt.Rows[0][2].ToString(),
+                    MType = Convert.ToInt32(dt.Rows[0][3])
+                };
+                
+            }
+            else
+            {
+                // 用户不存在
+
+            }
+            return mi;
+        }
     }
 }
