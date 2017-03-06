@@ -88,6 +88,7 @@
             this.btnSearchAll.TabIndex = 5;
             this.btnSearchAll.Text = "Show All";
             this.btnSearchAll.UseVisualStyleBackColor = true;
+            this.btnSearchAll.Click += new System.EventHandler(this.btnSearchAll_Click);
             // 
             // txtPhoneSearch
             // 
@@ -96,6 +97,7 @@
             this.txtPhoneSearch.Name = "txtPhoneSearch";
             this.txtPhoneSearch.Size = new System.Drawing.Size(144, 22);
             this.txtPhoneSearch.TabIndex = 3;
+            this.txtPhoneSearch.Leave += new System.EventHandler(this.txtPhoneSearch_Leave);
             // 
             // label2
             // 
@@ -114,6 +116,7 @@
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(145, 22);
             this.txtNameSearch.TabIndex = 1;
+            this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label1
             // 
@@ -235,6 +238,7 @@
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Add";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // ddlType
             // 
@@ -278,7 +282,7 @@
             this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(144, 22);
             this.txtId.TabIndex = 5;
-            this.txtId.Text = "添加时无编号";
+            this.txtId.Text = "No ID When Adding";
             // 
             // label7
             // 
