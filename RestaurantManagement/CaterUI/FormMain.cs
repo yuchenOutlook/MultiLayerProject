@@ -41,8 +41,11 @@ namespace CaterUI
 
         private void menuManagerInfo_Click(object sender, EventArgs e)
         {
-            FormManagerInfo formManagerInfo = new FormManagerInfo();
+            // 使用单例模式创建当前的ManagerInfo 窗口，这样就只用创建一次了
+            FormManagerInfo formManagerInfo = FormManagerInfo.Create();
             formManagerInfo.Show();
+            formManagerInfo.Focus(); // 将当前窗体获得焦点
+
         }
     }
 }
