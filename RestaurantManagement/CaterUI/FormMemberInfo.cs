@@ -82,6 +82,15 @@ namespace CaterUI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // 值的有效性判断
+            if (txtNameAdd.Text == "")
+            {
+                MessageBox.Show("Please enter the name of the member!");
+                txtNameAdd.Focus();
+                return;
+            }
+
+            // 接收用户输入的数据
             MemberInfo mi = new MemberInfo() {
 
                 MName = txtNameAdd.Text,
@@ -105,6 +114,16 @@ namespace CaterUI
             else
             {
                 // 修改
+                mi.MId = int.Parse(txtId.Text);
+                if (miBll.Edit(mi))
+                {
+                    LoadList();
+                }
+                else
+                {
+                    MessageBox.Show("Updating failed, please try again later!");
+                }
+
             }
 
             // 恢复控件的值
@@ -114,6 +133,47 @@ namespace CaterUI
             txtMoney.Text = "";
             ddlType.SelectedIndex = 0;
             btnSave.Text = "Add";
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            // 恢复控件的值
+            txtId.Text = "No ID When Adding";
+            txtNameAdd.Text = "";
+            txtPhoneAdd.Text = "";
+            txtMoney.Text = "";
+            ddlType.SelectedIndex = 0;
+            btnSave.Text = "Add";
+        }
+
+        private void dgvList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // 获取点击的行
+            var row = dgvList.Rows[e.RowIndex];
+            // 将行中的数据显示到控件上
+            txtId.Text = row.Cells[0].Value.ToString();
+            txtNameAdd.Text = row.Cells[1].Value.ToString();
+            txtPhoneAdd.Text = row.Cells[3].Value.ToString();
+            ddlType.Text = row.Cells[2].Value.ToString();
+            txtMoney.Text = row.Cells[4].Value.ToString();
+            btnSave.Text = "Update";
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            // 获取选中项的编号
+            int id = Convert.ToInt32(dgvList.SelectedRows[0].Cells[0].Value);
+            // 先提示确认
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this row? ", "Delete Warning", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.Cancel) return;
+            if (miBll.Remove(id))
+            {
+                LoadList();
+            }
+            else
+            {
+                MessageBox.Show("Failed to delete, please try again later!");
+            }
         }
     }
 }
