@@ -220,6 +220,7 @@
             this.btnAddType.TabIndex = 13;
             this.btnAddType.Text = "Type Management";
             this.btnAddType.UseVisualStyleBackColor = true;
+            this.btnAddType.Click += new System.EventHandler(this.btnAddType_Click);
             // 
             // btnCancel
             // 

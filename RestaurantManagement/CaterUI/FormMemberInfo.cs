@@ -48,6 +48,13 @@ namespace CaterUI
 
             dgvList.AutoGenerateColumns = false;
             dgvList.DataSource = miBll.GetList(dic);
+
+            // 设置某行选中
+            if (dgvSelectedIndex > -1)
+            {
+                dgvList.Rows[dgvSelectedIndex].Selected = true;
+            }
+            
         }
 
         private void LoadTypeList()
@@ -146,8 +153,11 @@ namespace CaterUI
             btnSave.Text = "Add";
         }
 
+        private int dgvSelectedIndex = -1;
+
         private void dgvList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            dgvSelectedIndex = e.RowIndex;
             // 获取点击的行
             var row = dgvList.Rows[e.RowIndex];
             // 将行中的数据显示到控件上
@@ -173,6 +183,19 @@ namespace CaterUI
             else
             {
                 MessageBox.Show("Failed to delete, please try again later!");
+            }
+        }
+
+        private void btnAddType_Click(object sender, EventArgs e)
+        {
+            FormMemberTypeInfo formMti = new FormMemberTypeInfo();
+            // 以模态窗口打开分类管理
+            DialogResult result = formMti.ShowDialog();
+            // 根据返回值，判断是否要更新下拉列表
+            if(result == DialogResult.OK)
+            {
+                LoadTypeList();
+                LoadList();
             }
         }
     }

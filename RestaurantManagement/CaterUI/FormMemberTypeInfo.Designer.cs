@@ -179,6 +179,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMemberTypeInfo";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMemberTypeInfo_FormClosing);
             this.Load += new System.EventHandler(this.FormMemberTypeInfo_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();

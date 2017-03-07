@@ -20,6 +20,7 @@ namespace CaterUI
         }
 
         MemberTypeInfoBll mtiBll = new MemberTypeInfoBll();
+        private DialogResult result = DialogResult.Cancel;
 
         private void FormMemberTypeInfo_Load(object sender, EventArgs e)
         {
@@ -75,6 +76,7 @@ namespace CaterUI
             txtTitle.Text = "";
             txtDiscount.Text = "";
             btnSave.Text = "Add";
+            this.DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -95,6 +97,8 @@ namespace CaterUI
             txtTitle.Text = row.Cells[1].Value.ToString();
             txtDiscount.Text = row.Cells[2].Value.ToString();
             btnSave.Text = "Update";
+            result = DialogResult.OK;
+            
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -116,6 +120,12 @@ namespace CaterUI
             {
                 MessageBox.Show("Deleting Failed, please try again!");
             }
+            result = DialogResult.OK;
+        }
+
+        private void FormMemberTypeInfo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.DialogResult = result;
         }
     }
 }
